@@ -52,7 +52,7 @@ function plotModelSimulation
     plot(Tf,FF,'Color', F_color,'LineWidth', line_width)
     title('Cell Populations')
     xlim([0 tfinal]) 
-    ylim([0 2*p.KF])
+    %ylim([0 2*p.KF])
     xlabel('Time (days)')
     ylabel('F (cells/mm^3)')
     title('Cancer-Associated Fibroblasts')
@@ -89,12 +89,36 @@ function plotModelSimulation
     title('Regulatory T cells (T_{R})')
     ax = gca;
     formatAxes(ax);
+
+    % Bottom right plot (overlay of all curves)
+    nexttile
+
+    % Left axis: M2, Tc, Tr
+    yyaxis left
+    plot(Tf, M2F, 'Color', M2_color, 'LineWidth', line_width); hold on
+    plot(Tf, TcF, 'Color', Tc_color, 'LineWidth', line_width);
+    plot(Tf, TrF, 'Color', Tr_color, 'LineWidth', line_width);
+    ylabel('Cells / mm^3')
+
+    % Right axis: F, B
+    yyaxis right
+    plot(Tf, FF, 'Color', F_color, 'LineWidth', line_width);
+    plot(Tf, BF, 'Color', B_color, 'LineWidth', line_width);
+    ylabel('Fibroblasts (F) / Tumor Cells (B)')
+
+    
+    xlim([0 tfinal])
+    xlabel('Time (days)')
+    title('All Cell Populations')
+    ax = gca;
+    formatAxes(ax);
+    legend({'M2','T_C','T_R','F','B'}, 'Location','north')
+
   
     %helper function for formatting axes
     function formatAxes(ax)
         ax.Title.FontSize = 15;
         ax.XAxis.FontSize = 14;
-        ax.YAxis.FontSize = 14;
     end
 
 end 
