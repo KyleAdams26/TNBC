@@ -50,8 +50,8 @@ function dcdt = odefun(~, c, p) %QC'd
     % ###Step 3
     % Dynamics 
     dy(1)  = c_lPath*(1 + aPath) - ePath*(1 + hPath) - iPath; %dM2dt
-    dy(2)  = d_mPath - kPath; %dFdt
-    %dy(2) = (0.35)*p.pB*B*(1 - F/p.KF) - kPath;
+    %dy(2)  = d_mPath - kPath; %dFdt
+    dy(2) = (0.345)*p.pB*B*(1 - F/p.KF) - kPath;
     dy(3)  = jPath*(1 + fPath)*(1 + gPath) - uPath*(1 + tPath * ( 1 - rPath )*( 1 - oPath )*( 1 - wPath ) );%dBdt
     dy(4)  = qPath*(1 + nPath)*(1 - yPath) - vPath; %dTcdt
     dy(5)  = sPath*(1 + bPath)*(1 + pPath) - xPath; %dTrdt
