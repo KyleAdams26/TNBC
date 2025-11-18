@@ -42,7 +42,7 @@ function plotModelSimulation
     plot(Tf, M2F, 'Color', M2_color, 'LineWidth',line_width)
     xlim([0 tfinal])
     xlabel('Time (days)')
-    ylabel('M2 (cells/\mu L)')
+    ylabel('M2 (cells/mm ^3)')
     title('M2 Macrophages')
     ax = gca;
     formatAxes(ax);
@@ -52,8 +52,9 @@ function plotModelSimulation
     plot(Tf,FF,'Color', F_color,'LineWidth', line_width)
     title('Cell Populations')
     xlim([0 tfinal]) 
+    ylim([0 2*p.KF])
     xlabel('Time (days)')
-    ylabel('F (cells/\mu L)')
+    ylabel('F (cells/mm^3)')
     title('Cancer-Associated Fibroblasts')
     ax = gca;
     formatAxes(ax);
@@ -63,7 +64,7 @@ function plotModelSimulation
     plot(Tf,BF, 'Color', B_color, 'LineWidth', line_width)
     xlim([0 tfinal])
     xlabel('Time (days)')
-    ylabel('B (cells/\mu L)')
+    ylabel('B (mm^3)')
     title('Breast Cancer Tumor Cells')
     ax = gca;
     formatAxes(ax);
@@ -72,8 +73,9 @@ function plotModelSimulation
     nexttile
     plot(Tf,TcF, 'Color', Tc_color,'LineWidth',line_width)
     xlim([0 tfinal])
+    ylim([0 2*p.KC])
     xlabel('Time (days)')
-    ylabel('T_{C} (cells/\mu L)')
+    ylabel('T_{C} (cells/ mm ^3)')
     title('Cytotoxic T cells (T_{C})')
     ax = gca;
     formatAxes(ax);
@@ -83,7 +85,7 @@ function plotModelSimulation
     plot(Tf,TrF,'Color', Tr_color, 'LineWidth',line_width)
     xlim([0 tfinal])
     xlabel('Time (days)')
-    ylabel('T_{R} (cells/\mu L)')
+    ylabel('T_{R} (cells/mm ^3)')
     title('Regulatory T cells (T_{R})')
     ax = gca;
     formatAxes(ax);
