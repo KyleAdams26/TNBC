@@ -1,8 +1,7 @@
 function IC = setInitialConditions() %set initial conditions of state variables
-    IC.M20  = 36100;
-    %IC.F0  = 2112.5;
-    IC.F0 = 361.215;
-    IC.B0 = 1047;
-    IC.Tc0 = 2.2254e5;
-    IC.Tr0 = 8.9112e4;
+    IC.M20  = 21500;
+    IC.F0 = 722;
+    IC.B0 = 2090;
+    IC.Tc0 = 66800;
+    IC.Tr0 = 10900;
 end
