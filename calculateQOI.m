@@ -13,7 +13,7 @@ function QOI = calculateQOI(p)
     %simulate the model 
     [~,Y] = ode45(@(t, y)odefun(t, y, p),...
         [t0 tfinal], IC); 
-    %we chose the L(T) as our QOI   
+    %we chose the B(T) as our QOI   
     QOI = Y(end,3); % ###Step 2
     % results
 end
