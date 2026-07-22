@@ -1,4 +1,4 @@
-function dcdt = odefun(~, c, p) %QC'd
+function dcdt = odefun(~, c, p) 
     % odefun - system of equations of the TNBC model
     % Inputs:
     %   ~ - time (called t in "Dynamics" in step 3)
@@ -19,7 +19,8 @@ function dcdt = odefun(~, c, p) %QC'd
     % ###Step 2
         %% -- The rate change of the 5 populations (Dynamics of the system) -- %%
         % Pathways for the dynamics %
-   
+    onePath = p.aFR*F/(p.bFR + F);
+    twoPath = p.aFC*F/(p.bFC + F);
     aPath = p.aF2*F/(p.bF2 + F);
     bPath = p.a2R*M2/(p.b2R + M2);
     c_lPath = p.aB2*B/(p.bB2 + B);
@@ -50,8 +51,8 @@ function dcdt = odefun(~, c, p) %QC'd
     dy(1)  = c_lPath*(1 + aPath) - ePath*(1 + hPath) - iPath; %dM2dt
     dy(2) = d_mPath - kPath;
     dy(3)  = jPath*(1 + fPath)*(1 + gPath) - uPath*(1 + tPath * ( 1 - rPath )*( 1 - oPath )*( 1 - wPath ) );%dBdt
-    dy(4)  = qPath*(1 + nPath)*(1 - yPath) - vPath; %dTcdt
-    dy(5)  = sPath*(1 + bPath)*(1 + pPath) - xPath; %dTrdt
+    dy(4)  = qPath*(1 + nPath)*(1 - yPath)*(1 - twoPath) - vPath; %dTcdt
+    dy(5)  = sPath*(1 + bPath)*(1 + pPath)*(1 + onePath) - xPath; %dTrdt
 
     dcdt = [dy(1), dy(2), dy(3), dy(4), dy(5)]';
 end
