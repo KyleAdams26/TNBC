@@ -30,6 +30,7 @@ inhibitoryParams = { ...
     'aBCB', ...
     'aRCB', ...
     'aRC', ... 
+    'aFC', ...
 };
 
 
@@ -106,7 +107,6 @@ paramNames_sorted = paramNames(idx);
 % ###Step 3
 %plot sensitivity indices
 hold on;
-figure('DefaultAxesFontSize', 16);
 b = bar([S1_sorted, ST_sorted], 'grouped');
 b(1).FaceColor = [1 0.79 0.63]; %light orange - bar color for S1 values
 b(2).FaceColor = [0 0.188 0.69]; %dark blue - bar color for ST values
@@ -116,8 +116,8 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0, 0.04, 1, 0.96]);
 xticks(1:length(paramNames_sorted));
 xticklabels(paramNames_sorted)
 xtickangle(45);
-ylabel('Sensitivity Index', 'FontSize', 16, 'FontName', 'serif');
-legend({'S1', 'ST'}, 'FontSize', 16, 'FontName', 'serif');
+ylabel('Sensitivity Index', 'FontSize', 22, 'FontName', 'serif', 'FontWeight', 'bold');
+legend({'S1', 'ST'}, 'FontSize', 22, 'FontName', 'serif', 'FontWeight', 'bold');
 hold off;
 
 %create scatterplot of a parameter's values vs QOI values
@@ -137,15 +137,15 @@ p.(parsName{ii}) = parsValue(ii);
 end
 end
 
-%plots top 16 parameters on a bar graph with S1 and ST side by side
-plot_top_params(16, S1_sorted, ST_sorted, paramNames_sorted)
+%plots top 18 parameters on a bar graph with S1 and ST side by side
+plot_top_params(18, S1_sorted, ST_sorted, paramNames_sorted)
 
 
 %save sensitivity indices and QOI matrix
 save(fullfile(outdir, ['sensitivity_results_s1' timestamp '.mat']), 'S1');
 save(fullfile(outdir, ['sensitivity_results_sT' timestamp '.mat']), 'ST');
 save(fullfile(outdir, ['QOI' timestamp '.mat']), 'QOI');
-save(fullfile(outdir, ['pN' timestamp '.mat']), 'pN');
+%save(fullfile(outdir, ['pN' timestamp '.mat']), 'pN');
 T_ST = table(paramNames(:), ST(:), 'VariableNames', {'Parameter', 'ST'});
 writetable(T_ST, fullfile(outdir, ['sensitivity_resultsST_' timestamp '.csv']));
 
@@ -180,7 +180,13 @@ xticks(1:num_params_plotted);
 xticklabels(cellfun(@englishToGreek, paramNames_sorted(1:num_params_plotted), 'UniformOutput', false)); %converts english parameters to Greek (or plain english to subscripts, like KF to K_F)
 xtickangle(45);
 set(gca, 'FontSize', 20)%, 'TickLength', [0.001, 0.005])
-ylabel('Sensitivity Index Values', 'FontSize', 24, 'FontName', 'serif');
+yl = ylabel('Sensitivity Index Values', 'FontSize', 28, 'FontName', 'serif');
+yl.Units = 'normalized';
+pos = yl.Position;
+pos(1) = pos(1) - 0.02; %move axis legend further left for readability
+yl.Position = pos;
+
+
 xlabel('Parameters', 'FontSize', 24, 'FontName', 'serif')
 legend({'S_1', 'S_T'}, 'FontSize', 30, 'FontName', 'serif');
 hold off;
